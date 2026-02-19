@@ -1,7 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { saveSessionData } from "@/lib/firebase-stats";
+import { saveSessionData, type SessionData } from "@/lib/firebase-stats";
+
+interface Interaction {
+  button_id: string;
+  section: string;
+  time_offset: number;
+}
 
 export default function Telemetry() {
   const stats = useRef({
@@ -11,22 +17,18 @@ export default function Telemetry() {
     sectionTimes: {} as Record<string, number>,
     currentSection: null as string | null,
     lastEntryTime: Date.now(),
-    interactions: [] as Array<{
-      button_id: string;
-      section: string;
-      time_offset: number;
-    }>,
+    interactions: [] as Interaction[],
   });
 
   useEffect(() => {
-    const handleCustomClick = (e: any) => {
-      const target = e.target.closest("[data-track-id]");
+    const handleCustomClick = (e: MouseEvent) => {
+      const target = (e.target as Element).closest("[data-track-id]");
       if (target) {
         const buttonId = target.getAttribute("data-track-id");
         const now = Date.now();
 
         stats.current.interactions.push({
-          button_id: buttonId,
+          button_id: buttonId || "unknown",
           section: stats.current.currentSection || "unknown",
           time_offset: Math.round((now - stats.current.startTime) / 1000),
         });
@@ -56,12 +58,15 @@ export default function Telemetry() {
       if (totalDuration < 2) return;
 
       stats.current.sent = true;
-      saveSessionData({
+      
+      const sessionData: SessionData = {
         duration_seconds: totalDuration,
         max_scroll_percent: stats.current.maxScroll,
         time_per_section: stats.current.sectionTimes,
         clicks: stats.current.interactions,
-      });
+      };
+      
+      saveSessionData(sessionData);
     };
 
     const handleScroll = () => {
@@ -75,10 +80,10 @@ export default function Telemetry() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting && e.target.id) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target.id) {
             updateSectionTime();
-            stats.current.currentSection = e.target.id;
+            stats.current.currentSection = entry.target.id;
             stats.current.lastEntryTime = Date.now();
           }
         });
