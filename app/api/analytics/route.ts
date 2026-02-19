@@ -28,7 +28,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true }, { status: 200 });
-  } catch (_error) {
+  } catch {
     return NextResponse.json({ error: "Failed to save" }, { status: 500 });
   }
 }
