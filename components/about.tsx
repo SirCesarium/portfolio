@@ -18,7 +18,7 @@ const About = () => {
         <div className="space-y-12">
           <div className="space-y-4 text-muted-foreground text-lg leading-relaxed text-justify">
             <p>
-              Hi there! I'm Cesar, a backend web developer. I build decoupled,
+              Hi there! I&apos;m Cesar, a backend web developer. I build decoupled,
               testable and predictable systems. I choose tools based on the
               problem, not trends; I prioritize data integrity and maintainable
               API flows balancing technical quality with the speed required to

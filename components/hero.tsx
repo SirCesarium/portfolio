@@ -24,7 +24,7 @@ const Hero = () => {
         className="relative z-[1] text-center max-w-screen-md"
       >
         <span className="block text-sm sm:text-base font-mono text-primary mb-4 tracking-widest uppercase">
-          I'm Cesar Marcano and
+          I&apos;m Cesar Marcano and
         </span>
 
         <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold !leading-[0.9] tracking-tighter mb-6">
