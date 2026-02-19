@@ -28,16 +28,10 @@ export class TelegramService {
     };
 
     const text = `
-📩 *New Contact Message*
+*${escaped.subject}*
 
 📧 *From*
-\`${escaped.email}\`
-
-👤 *By*
-${escaped.name}
-
-📌 *Subject*
-${escaped.subject}
+\`${escaped.email}\` - ${escaped.name}
 
 💬 *Message*
 ${escaped.message}
