@@ -15,18 +15,17 @@ export const GithubLogo = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const XLogo = (props: SVGProps<SVGSVGElement>) => (
+export const LinkedinLogo = (props: SVGProps<SVGSVGElement>) => (
   <svg
     role="img"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <title>X</title>
-    <path
-      className="fill-current"
-      d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"
-    />
+    <title>Linkedin</title>
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" className="fill-current" />
+    <rect width="4" height="12" x="2" y="9" className="fill-current" />
+    <circle cx="4" cy="4" r="2" className="fill-current" />
   </svg>
 );
 

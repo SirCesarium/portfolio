@@ -1,71 +1,108 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
-import Image from "next/image";
 import { GithubLogo } from "./icons";
+
+const LANGUAGES = ["Java", "TypeScript", "Rust", "Python"] as const;
+type Language = (typeof LANGUAGES)[number];
+
+const languageConfig: Record<Language, { label: string; colorClass: string }> =
+  {
+    Java: {
+      label: "Java",
+      colorClass:
+        "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+    },
+    TypeScript: {
+      label: "TypeScript",
+      colorClass:
+        "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    },
+    Rust: {
+      label: "Rust",
+      colorClass:
+        "bg-orange-700/10 text-orange-700 dark:text-orange-500 border-orange-700/20",
+    },
+    Python: {
+      label: "Python",
+      colorClass:
+        "bg-yellow-500/10 text-yellow-700 dark:text-yellow-500 border-yellow-500/20",
+    },
+  };
 
 interface ProjectCardProps {
   title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  liveUrl?: string;
+  description: string[];
+  tags: string[];
+  mainLanguage: Language;
   githubUrl?: string;
+  status?: string;
 }
 
 const ProjectCard = ({
   title,
   description,
-  image,
-  technologies,
-  liveUrl,
+  tags,
+  mainLanguage,
   githubUrl,
+  status,
 }: ProjectCardProps) => {
+  const lang = languageConfig[mainLanguage];
+
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-accent transition-all hover:border-primary/50">
-      {/* Project Image */}
-      <div className="relative h-64 overflow-hidden bg-accent">
-        <Image
-          src={image}
-          alt={title}
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          fill
-        />
-      </div>
-
-      {/* Content */}
+    <div className="group relative flex flex-col overflow-hidden rounded-xl border border-accent bg-card transition-all hover:border-primary/50 hover:shadow-lg">
       <div className="flex-1 flex flex-col p-6">
-        <h3 className="text-xl font-semibold mb-2">{title}</h3>
-        <p className="text-muted-foreground mb-4">{description}</p>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <Badge
+              className={`mb-2 rounded-md border shadow-none font-mono text-[10px] ${lang.colorClass}`}
+            >
+              {lang.label}
+            </Badge>
+            <h3 className="text-xl font-bold tracking-tight">{title}</h3>
+          </div>
+          {status && (
+            <Badge
+              variant="outline"
+              className="text-[9px] uppercase tracking-wider opacity-70"
+            >
+              {status}
+            </Badge>
+          )}
+        </div>
 
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {technologies.map((tech) => (
-            <Badge key={tech} variant="secondary" className="rounded-full">
-              {tech}
+        <ul className="text-muted-foreground mb-6 text-sm leading-relaxed list-disc pl-4 space-y-1">
+          {description.map((point, index) => (
+            <li key={index}>{point}</li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-2 mb-8">
+          {tags.map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="rounded-md px-2 py-0 text-[11px]"
+            >
+              {tag}
             </Badge>
           ))}
         </div>
 
-        {/* Actions */}
         <div className="flex gap-3 mt-auto">
-          {liveUrl && (
-            <Button variant="default" className="rounded-full" asChild>
-              <a href={liveUrl} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-1 h-4 w-4" />
-                Live Demo
-              </a>
-            </Button>
-          )}
           {githubUrl && (
             <Button
-              variant="outline"
-              className="rounded-full shadow-none"
+              variant="default"
+              className="rounded-full w-full shadow-none group"
               asChild
             >
-              <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-                <GithubLogo className="mr-1 h-4 w-4" />
-                View Code
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-track-id={`project-${title.toLowerCase().replace(/\s+/g, "-")}-github-link`}
+              >
+                <GithubLogo className="mr-2 h-4 w-4" />
+                View Source
               </a>
             </Button>
           )}
@@ -78,40 +115,55 @@ const ProjectCard = ({
 const Projects = () => {
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description:
-        "A full-featured e-commerce platform with real-time inventory management, payment processing, and admin dashboard.",
-      image: "/placeholder.svg",
-      technologies: ["Next.js", "TypeScript", "Stripe", "Prisma", "PostgreSQL"],
-      liveUrl: "https://ecommerce-demo.com",
-      githubUrl: "https://github.com/username/ecommerce",
+      title: "Beacon Framework",
+      description: [
+        "Boilerplate reduction for Minecraft modding via declarative annotations.",
+        "Metaprogramming via Java Reflection implementation for automated registry injection.",
+        "Designed with incremental adoption and DX-first principles, avoiding vendor lock-in.",
+      ],
+      tags: [
+        "Annotation-Driven",
+        "Reflection",
+        "NeoForge",
+        "Dev Tools",
+        "Meta-Programming",
+      ],
+      mainLanguage: LANGUAGES[0],
+      githubUrl: "https://github.com/SirCesarium/Beacon-Core",
+      status: "Alpha / Active",
     },
     {
-      title: "AI Task Manager",
-      description:
-        "Smart task management app that uses AI to categorize, prioritize, and suggest optimal task scheduling.",
-      image: "/placeholder.svg",
-      technologies: ["React", "Python", "TensorFlow", "FastAPI", "MongoDB"],
-      liveUrl: "https://ai-taskmanager.com",
-      githubUrl: "https://github.com/username/ai-taskmanager",
+      title: "Scholar Balance API",
+      description: [
+        "Automated accounting engine for school fee and discount management.",
+        "Designed to minimize race conditions through transactional boundaries and explicit domain rules.",
+        "Explicit audit logs to make financial operations traceable.",
+      ],
+      mainLanguage: LANGUAGES[1],
+      tags: ["Node.js", "InversifyJS", "Prisma", "PostgreSQL", "Zod"],
+      githubUrl: "https://github.com/SirCesarium/scholar-balance-api",
     },
     {
-      title: "Real-time Chat Application",
-      description:
-        "Feature-rich chat application with real-time messaging, file sharing, and video calls.",
-      image: "/placeholder.svg",
-      technologies: ["React", "Socket.io", "WebRTC", "Node.js", "Redis"],
-      liveUrl: "https://chatapp-demo.com",
-      githubUrl: "https://github.com/username/chat-app",
+      title: "Web Alias",
+      description: [
+        "URL shortener with Redis-backed analytics and subscription support.",
+        "Pluggable payment architecture allowing provider swaps without touching business logic.",
+        "Secure subscription lifecycle with PayPal SDK and JWT rotation.",
+      ],
+      mainLanguage: LANGUAGES[1],
+      tags: ["Clean Architecture", "Redis", "PayPal SDK", "JWT Rotation"],
+      githubUrl: "https://github.com/SirCesarium/WebAlias",
     },
     {
-      title: "AI Image Generator",
-      description:
-        "An AI image generator that uses a model to generate images based on a prompt.",
-      image: "/placeholder.svg",
-      technologies: ["React", "Next.js", "Tailwind CSS", "Shadcn UI"],
-      liveUrl: "https://ai-image-generator.com",
-      githubUrl: "https://github.com/username/ai-image-generator",
+      title: "Social Core API",
+      description: [
+        "Modular GraphQL API managing complex relational social graphs.",
+        "Granular security layer with custom Helmet CSP and JWT refresh logic.",
+        "Decoupled business logic for posts, comments, and polymorphic reactions.",
+      ],
+      mainLanguage: LANGUAGES[1],
+      tags: ["NestJS", "GraphQL", "Apollo", "MongoDB", "Security"],
+      githubUrl: "https://github.com/SirCesarium/Social-Core-API",
     },
   ];
 
@@ -119,15 +171,9 @@ const Projects = () => {
     <section id="projects" className="relative py-20 px-6">
       <div className="max-w-screen-md mx-auto">
         <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">
-            Projects
-          </Badge>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight">
-            Featured Work
+            Projects
           </h2>
-          <p className="text-muted-foreground mt-2 sm:mt-4 text-lg">
-            Showcasing some of my best projects and technical achievements
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
