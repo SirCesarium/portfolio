@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "Cesar Marcano | Backend Developer",
     description:
       "Backend developer focused on decoupled, testable systems and data integrity.",
-    url: "https://cesarmarcano.vercel.app",
+    url: "https://cesarm.vercel.app",
     siteName: "Cesar Marcano",
     locale: "en_US",
     type: "website",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL("https://cesarmarcano.vercel.app"),
+  metadataBase: new URL("https://cesarm.vercel.app"),
   alternates: {
     canonical: "/",
     languages: {
