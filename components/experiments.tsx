@@ -4,8 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { GithubLogo } from "./icons";
 import { GitFork, GitMerge, Wrench, ArrowUpRight } from "lucide-react";
 
-const LANGUAGES = ["Java", "TypeScript", "JavaScript", "Python"] as const;
-type Language = (typeof LANGUAGES)[number];
+type Language = "Java" | "TypeScript" | "JavaScript" | "Python";
 
 const languageConfig: Record<Language, { label: string; colorClass: string }> =
   {
