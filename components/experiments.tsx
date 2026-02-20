@@ -30,7 +30,7 @@ const languageConfig: Record<Language, { label: string; colorClass: string }> =
     },
   };
 
-interface ExperimentCardProps {
+export interface ExperimentCardProps {
   title: string;
   description: string;
   mainLanguage: Language;
@@ -94,34 +94,7 @@ const Experiment = ({
   );
 };
 
-const Experiments = () => {
-  const experimentsList: ExperimentCardProps[] = [
-    {
-      title: "Lychee (Contribution)",
-      description:
-        "Contributed a persistence fix to a widely adopted Minecraft mod, submitting a merged PR after navigating an established production codebase.",
-      mainLanguage: "Java",
-      githubUrl: "https://github.com/Snownee/Lychee/pull/131",
-      type: "merged",
-    },
-    {
-      title: "Cache Proxy CLI",
-      description:
-        "Lightweight and configurable proxy cache server built with Express.JS and Redis for local testing.",
-      mainLanguage: "TypeScript",
-      githubUrl: "https://github.com/SirCesarium/CacheProxy-CLI",
-      type: "tool",
-    },
-    {
-      title: "RYD Refined (Fork)",
-      description:
-        "Refined version of the Return YouTube Dislike extension, removing adware and bloatware.",
-      mainLanguage: "JavaScript",
-      githubUrl:
-        "https://github.com/SirCesarium/return-youtube-dislike-refined",
-      type: "fork",
-    },
-  ];
+const Experiments = (props: { experimentsList: ExperimentCardProps[] }) => {
 
   return (
     <section id="experiments" className="relative py-20 px-6">
@@ -133,7 +106,7 @@ const Experiments = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {experimentsList.map((exp, index) => (
+          {props.experimentsList.map((exp, index) => (
             <Experiment key={index} {...exp} />
           ))}
 

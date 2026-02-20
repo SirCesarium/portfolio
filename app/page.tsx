@@ -2,7 +2,7 @@ import About, { IAbout } from "@/components/about";
 import Journey from "@/components/journey";
 import Hero from "@/components/hero";
 import Projects from "@/components/projects";
-import Experiments from "@/components/experiments";
+import Experiments, { ExperimentCardProps } from "@/components/experiments";
 import Contact from "@/components/contact";
 
 const aboutData: IAbout = {
@@ -39,6 +39,33 @@ software quality keeping in mind the developer experience.`,
   ],
 };
 
+const experimentsList: ExperimentCardProps[] = [
+  {
+    title: "Lychee (Contribution)",
+    description:
+      "Contributed a persistence fix to a widely adopted Minecraft mod, submitting a merged PR after navigating an established production codebase.",
+    mainLanguage: "Java",
+    githubUrl: "https://github.com/Snownee/Lychee/pull/131",
+    type: "merged",
+  },
+  {
+    title: "Cache Proxy CLI",
+    description:
+      "Lightweight and configurable proxy cache server built with Express.JS and Redis for local testing.",
+    mainLanguage: "TypeScript",
+    githubUrl: "https://github.com/SirCesarium/CacheProxy-CLI",
+    type: "tool",
+  },
+  {
+    title: "RYD Refined (Fork)",
+    description:
+      "Refined version of the Return YouTube Dislike extension, removing adware and bloatware.",
+    mainLanguage: "JavaScript",
+    githubUrl: "https://github.com/SirCesarium/return-youtube-dislike-refined",
+    type: "fork",
+  },
+];
+
 export default function Home() {
   return (
     <div className="space-y-10 sm:space-y-16">
@@ -46,7 +73,7 @@ export default function Home() {
       <About data={aboutData} />
       <Journey />
       <Projects />
-      <Experiments />
+      <Experiments experimentsList={experimentsList} />
       <Contact />
     </div>
   );
