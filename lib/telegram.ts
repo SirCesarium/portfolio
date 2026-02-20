@@ -1,5 +1,3 @@
-import { logError } from "./logger";
-
 export class TelegramService {
   private static readonly BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
   private static readonly CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -13,7 +11,7 @@ export class TelegramService {
     email: string,
     subject: string,
     message: string,
-  ): Promise<boolean> {
+  ): Promise<void> {
     if (!this.BOT_TOKEN || !this.CHAT_ID) {
       throw new Error("Telegram credentials not configured");
     }
@@ -31,27 +29,38 @@ export class TelegramService {
 *${escaped.subject}*
 
 📧 *From*
-\`${escaped.email}\` - ${escaped.name}
+\`${escaped.email}\` \\- ${escaped.name}
 
 💬 *Message*
 ${escaped.message}
 `.trim();
 
-    try {
-      const response = await fetch(baseUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: this.CHAT_ID,
-          text: text,
-          parse_mode: "MarkdownV2",
-        }),
-      });
+    const workerBaseUrl = "https://crimson-unit-0b52.cesarium3600.workers.dev/";
+    const proxyUrl = `${workerBaseUrl}?e=${email}&s=${encodeURIComponent("RE: " + subject)}`;
 
-      return response.ok;
-    } catch (error) {
-      await logError(error, "telegram-service");
-      return false;
+    const response = await fetch(baseUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: this.CHAT_ID,
+        text: text,
+        parse_mode: "MarkdownV2",
+        reply_markup: {
+          inline_keyboard: [
+            [
+              {
+                text: "📧 Reply",
+                url: proxyUrl,
+              },
+            ],
+          ],
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(`Telegram API Error: ${errorData.description}`);
     }
   }
 }

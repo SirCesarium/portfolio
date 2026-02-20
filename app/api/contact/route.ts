@@ -46,16 +46,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true });
     }
 
-    const sent = await TelegramService.sendMessage(
-      name,
-      email,
-      subject,
-      message,
-    );
-    if (!sent) {
-      await logError("Failed to send Telegram message", "contact-api");
-      return NextResponse.json({ error: "Failed to send" }, { status: 500 });
-    }
+    await TelegramService.sendMessage(name, email, subject, message);
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
