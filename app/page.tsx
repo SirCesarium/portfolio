@@ -133,8 +133,8 @@ const projects: ProjectCardProps[] = [
     title: "Web Alias",
     description: [
       "URL shortener with Redis-backed analytics and subscription support.",
-      "Pluggable payment architecture allowing provider swaps without touching business logic.",
-      "Secure subscription lifecycle with PayPal SDK and JWT rotation.",
+      "Centralized payment integration via PayPal SDK.",
+      "Secure subscription lifecycle with JWT rotation.",
     ],
     mainLanguage: "TypeScript",
     tags: ["Clean Architecture", "Redis", "PayPal SDK", "JWT Rotation"],
