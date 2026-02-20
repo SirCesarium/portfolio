@@ -15,13 +15,17 @@ export default function MessagePage() {
 
   let message = "";
   try {
-    message = decodeURIComponent(escape(atob(msgBase64)));
-  } catch (e) {
-    try {
-      message = atob(msgBase64);
-    } catch {
-      return notFound();
+    const binaryString = atob(msgBase64);
+
+    const bytes = new Uint8Array(binaryString.length);
+    for (let i = 0; i < binaryString.length; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
     }
+
+    message = new TextDecoder().decode(bytes);
+  } catch (e) {
+    console.error("Error decoding message:", e);
+    return notFound();
   }
 
   const mailtoUrl = `mailto:${email}?subject=RE: ${subject}`;
