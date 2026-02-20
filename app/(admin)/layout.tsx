@@ -57,10 +57,10 @@ export default async function AdminLayout({
                   Dashboard
                 </a>
                 <a
-                  href="/admin/proyectos"
+                  href="/admin/projects"
                   className="block p-2 hover:bg-zinc-900 rounded-md transition-colors"
                 >
-                  Proyectos
+                  Projects
                 </a>
               </nav>
             </div>
