@@ -74,10 +74,14 @@ const Contact = () => {
             name="subject"
             placeholder="Subject"
             className="p-2 bg-secondary/20 border border-accent rounded"
+            maxLength={200}
+            minLength={5}
           />
           <textarea
             name="message"
             placeholder="Message"
+            maxLength={2000}
+            minLength={10}
             required
             className="p-2 bg-secondary/20 border border-accent rounded h-32"
           />
