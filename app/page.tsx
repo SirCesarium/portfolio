@@ -122,7 +122,7 @@ const projects: ProjectCardProps[] = [
     title: "Scholar Balance API",
     description: [
       "Automated accounting engine for school fee and discount management.",
-      "Designed to minimize race conditions through transactional boundaries and explicit domain rules.",
+      "Designed with explicit domain rules and validation to ensure data integrity.",
       "Explicit audit logs to make financial operations traceable.",
     ],
     mainLanguage: "TypeScript",
