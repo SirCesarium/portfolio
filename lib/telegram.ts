@@ -25,6 +25,9 @@ export class TelegramService {
       message: this.escapeMarkdown(message),
     };
 
+    const isLong = message.length > 150;
+    const previewMessage = isLong ? message.substring(0, 150) + "..." : message;
+
     const text = `
 *${escaped.subject}*
 
@@ -32,8 +35,13 @@ export class TelegramService {
 \`${escaped.email}\` \\- ${escaped.name}
 
 💬 *Message*
-${escaped.message}
+${this.escapeMarkdown(previewMessage)}
 `.trim();
+
+    const portfolioUrl = "https://cesarm.vercel.app/message";
+    const msgEncoded = Buffer.from(message).toString("base64");
+
+    const viewFullUrl = `${portfolioUrl}?n=${encodeURIComponent(name)}&e=${encodeURIComponent(email)}&s=${encodeURIComponent(subject)}&msg=${encodeURIComponent(msgEncoded)}`;
 
     const workerBaseUrl = "https://crimson-unit-0b52.cesarium3600.workers.dev/";
     const proxyUrl = `${workerBaseUrl}?e=${email}&s=${encodeURIComponent("RE: " + subject)}`;
@@ -47,12 +55,8 @@ ${escaped.message}
         parse_mode: "MarkdownV2",
         reply_markup: {
           inline_keyboard: [
-            [
-              {
-                text: "📧 Reply",
-                url: proxyUrl,
-              },
-            ],
+            [{ text: "📧 Reply", url: proxyUrl }],
+            [{ text: "👁️ View", url: viewFullUrl }],
           ],
         },
       }),
