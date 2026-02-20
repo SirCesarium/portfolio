@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Message Viewer",
@@ -18,5 +19,15 @@ export default function MessageLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center font-mono text-sm opacity-50">
+          Loading message...
+        </div>
+      }
+    >
+      {children}
+    </Suspense>
+  );
 }
