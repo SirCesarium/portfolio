@@ -83,7 +83,7 @@ const Experiment = ({
         )}
       </div>
 
-      <p className="text-muted-foreground text-sm line-clamp-3 italic">
+      <p className="text-muted-foreground text-sm line-clamp-4 italic">
         {description}
       </p>
 
