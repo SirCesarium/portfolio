@@ -2,7 +2,7 @@
 
 import { Calendar } from "lucide-react";
 
-interface JourneyItemProps {
+export interface JourneyItemProps {
   title: string;
   period: string;
   description: string;
@@ -32,40 +32,7 @@ const JourneyItem = ({ title, period, description }: JourneyItemProps) => {
   );
 };
 
-const Journey = () => {
-  const milestones: JourneyItemProps[] = [
-    {
-      title: "Framework Development & Developer Experience",
-      period: "2025 - Present",
-      description:
-        "Building open-source frameworks to remove repetitive boilerplate and reduce cognitive overhead, based on friction I face daily as a backend developer.",
-    },
-    {
-      title: "Architecture (Applied)",
-      period: "2025",
-      description:
-        "Started introducing boundaries to improve testability. Developed a keen sense for balancing architecture with delivery speed, learning to identify when an abstraction adds value and when it's just over-engineering that slows down the deadline.",
-    },
-    {
-      title: "Environment & Code Standards",
-      period: "2024",
-      description:
-        "Adopted Docker and standard workflows to prevent environment inconsistencies and speed up development.",
-    },
-    {
-      title: "Structured Systems & SQL",
-      period: "2023 - 2024",
-      description:
-        "Stepped up to complex relational models and business rules, learning that messy data structures eventually break even the best logic.",
-    },
-    {
-      title: "Technical Foundations",
-      period: "2021 - 2022",
-      description:
-        "Started with JavaScript and TypeScript, building foundations using Firebase and NoSQL databases for rapid development, which eventually showed me why data consistency matters.",
-    },
-  ];
-
+const Journey = (props: { milestones: JourneyItemProps[] }) => {
   return (
     <section id="journey" className="relative py-20 px-6 bg-background/50">
       <div className="max-w-screen-md mx-auto">
@@ -76,7 +43,7 @@ const Journey = () => {
         </div>
 
         <div className="relative mt-16">
-          {milestones.map((milestone, index) => (
+          {props.milestones.map((milestone, index) => (
             <JourneyItem key={index} {...milestone} />
           ))}
         </div>
