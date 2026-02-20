@@ -18,10 +18,20 @@ export default function Telemetry() {
     currentSection: null as string | null,
     lastEntryTime: Date.now(),
     interactions: [] as Interaction[],
+    lastActivity: Date.now(),
   });
 
+  const IDLE_TIMEOUT = 3 * 60 * 1000;
+  const SECTION_MAX_TIME = 900;
+  const SESSION_MAX_TIME = 3600;
+
   useEffect(() => {
+    const updateActivity = () => {
+      stats.current.lastActivity = Date.now();
+    };
+
     const handleCustomClick = (e: MouseEvent) => {
+      updateActivity();
       const target = (e.target as Element).closest("[data-track-id]");
       if (target) {
         const buttonId = target.getAttribute("data-track-id");
@@ -36,16 +46,23 @@ export default function Telemetry() {
     };
 
     const updateSectionTime = () => {
-      if (stats.current.currentSection) {
-        const now = Date.now();
+      const now = Date.now();
+      const isIdle = now - stats.current.lastActivity > IDLE_TIMEOUT;
+
+      if (stats.current.currentSection && !isIdle) {
         const duration = Math.round((now - stats.current.lastEntryTime) / 1000);
-        if (duration > 0) {
-          stats.current.sectionTimes[stats.current.currentSection] =
-            (stats.current.sectionTimes[stats.current.currentSection] || 0) +
-            duration;
+
+        if (duration > 0 && duration < 300) {
+          const currentTotal =
+            stats.current.sectionTimes[stats.current.currentSection] || 0;
+
+          if (currentTotal < SECTION_MAX_TIME) {
+            stats.current.sectionTimes[stats.current.currentSection] =
+              currentTotal + duration;
+          }
         }
-        stats.current.lastEntryTime = now;
       }
+      stats.current.lastEntryTime = now;
     };
 
     const report = () => {
@@ -55,21 +72,23 @@ export default function Telemetry() {
       const totalDuration = Math.round(
         (Date.now() - stats.current.startTime) / 1000,
       );
-      if (totalDuration < 2) return;
+
+      if (totalDuration < 2 || totalDuration > SESSION_MAX_TIME) return;
 
       stats.current.sent = true;
-      
+
       const sessionData: SessionData = {
         duration_seconds: totalDuration,
         max_scroll_percent: stats.current.maxScroll,
         time_per_section: stats.current.sectionTimes,
         clicks: stats.current.interactions,
       };
-      
+
       saveSessionData(sessionData);
     };
 
     const handleScroll = () => {
+      updateActivity();
       const scroll = Math.round(
         (window.scrollY /
           (document.documentElement.scrollHeight - window.innerHeight)) *
@@ -95,6 +114,8 @@ export default function Telemetry() {
       .querySelectorAll("section[id]")
       .forEach((s) => observer.observe(s));
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("mousemove", updateActivity);
+    window.addEventListener("keydown", updateActivity);
     document.addEventListener("click", handleCustomClick);
     window.addEventListener("beforeunload", report);
     window.addEventListener("pagehide", report);
@@ -102,6 +123,8 @@ export default function Telemetry() {
     return () => {
       report();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", updateActivity);
+      window.removeEventListener("keydown", updateActivity);
       document.removeEventListener("click", handleCustomClick);
       window.removeEventListener("beforeunload", report);
       window.removeEventListener("pagehide", report);
