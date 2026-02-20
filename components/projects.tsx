@@ -2,32 +2,30 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GithubLogo } from "./icons";
 
-const LANGUAGES = ["Java", "TypeScript", "Rust", "Python"] as const;
-type Language = (typeof LANGUAGES)[number];
+const languageConfig: Record<string, { label: string; colorClass: string }> = {
+  Java: {
+    label: "Java",
+    colorClass:
+      "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
+  },
+  TypeScript: {
+    label: "TypeScript",
+    colorClass:
+      "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+  },
+  Rust: {
+    label: "Rust",
+    colorClass:
+      "bg-orange-700/10 text-orange-700 dark:text-orange-500 border-orange-700/20",
+  },
+  Python: {
+    label: "Python",
+    colorClass:
+      "bg-yellow-500/10 text-yellow-700 dark:text-yellow-500 border-yellow-500/20",
+  },
+};
 
-const languageConfig: Record<Language, { label: string; colorClass: string }> =
-  {
-    Java: {
-      label: "Java",
-      colorClass:
-        "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20",
-    },
-    TypeScript: {
-      label: "TypeScript",
-      colorClass:
-        "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
-    },
-    Rust: {
-      label: "Rust",
-      colorClass:
-        "bg-orange-700/10 text-orange-700 dark:text-orange-500 border-orange-700/20",
-    },
-    Python: {
-      label: "Python",
-      colorClass:
-        "bg-yellow-500/10 text-yellow-700 dark:text-yellow-500 border-yellow-500/20",
-    },
-  };
+type Language = keyof typeof languageConfig;
 
 export interface ProjectCardProps {
   title: string;
