@@ -5,7 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Download, Code2, Brain } from "lucide-react";
 import { GithubLogo } from "./icons";
 
-const About = () => {
+export interface IAbout {
+  aboutMeContent: string[];
+  technicalStack: string[];
+  softSkills: string[];
+  showCvButton?: boolean;
+}
+
+const About = (props: { data: IAbout }) => {
   return (
     <section id="about" className="relative py-20 px-6">
       <div className="max-w-screen-md mx-auto">
@@ -17,21 +24,9 @@ const About = () => {
 
         <div className="space-y-12">
           <div className="space-y-4 text-muted-foreground text-lg leading-relaxed text-justify">
-            <p>
-              Hi there! I&apos;m Cesar, a backend web developer. I build decoupled,
-              testable and predictable systems. I choose tools based on the
-              problem, not trends; I prioritize data integrity and maintainable
-              API flows balancing technical quality with the speed required to
-              hit production deadlines.
-            </p>
-
-            <p>
-              I value clarity over unnecessary complexity. My goal is writing
-              pragmatic solutions that avoid over-engineering while remaining
-              easy to extend. I also contribute to the open-source ecosystem by
-              building tools to solve problems that I face daily, to improve
-              software quality keeping in mind the developer experience.
-            </p>
+            {props.data.aboutMeContent.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -41,18 +36,7 @@ const About = () => {
                 <h3>Technical Stack</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {[
-                  "TypeScript",
-                  "NodeJS",
-                  "NestJS",
-                  "Jest",
-                  "Docker",
-                  "MongoDB",
-                  "Redis",
-                  "PostgreSQL",
-                  "Java",
-                  "Tooling & Scripting",
-                ].map((skill) => (
+                {props.data.technicalStack.map((skill) => (
                   <Badge
                     key={skill}
                     variant="outline"
@@ -70,13 +54,7 @@ const About = () => {
                 <h3>Soft Skills</h3>
               </div>
               <div className="flex flex-wrap gap-2">
-                {[
-                  "Critical Thinking",
-                  "Teamwork",
-                  "Attention to Detail",
-                  "Pragmatic Delivery & Rapid Prototyping",
-                  "Self-Directed Learner",
-                ].map((skill) => (
+                {props.data.softSkills.map((skill) => (
                   <Badge
                     key={skill}
                     variant="secondary"
@@ -101,17 +79,19 @@ const About = () => {
                 View Github
               </a>
             </Button>
-            <Button
-              variant="outline"
-              className="rounded-full px-6 shadow-none"
-              asChild
-              data-track-id="about-cv-link"
-            >
-              <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">
-                <Download className="mr-2 size-4" />
-                Download CV
-              </a>
-            </Button>
+            {props.data.showCvButton && (
+              <Button
+                variant="outline"
+                className="rounded-full px-6 shadow-none"
+                asChild
+                data-track-id="about-cv-link"
+              >
+                <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">
+                  <Download className="mr-2 size-4" />
+                  Download CV
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>
