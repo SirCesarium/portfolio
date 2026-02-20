@@ -29,7 +29,7 @@ const languageConfig: Record<Language, { label: string; colorClass: string }> =
     },
   };
 
-interface ProjectCardProps {
+export interface ProjectCardProps {
   title: string;
   description: string[];
   tags: string[];
@@ -112,61 +112,7 @@ const ProjectCard = ({
   );
 };
 
-const Projects = () => {
-  const projects = [
-    {
-      title: "Beacon Framework",
-      description: [
-        "Boilerplate reduction for Minecraft modding via declarative annotations.",
-        "Metaprogramming via Java Reflection implementation for automated registry injection.",
-        "Designed with incremental adoption and DX-first principles, avoiding vendor lock-in.",
-      ],
-      tags: [
-        "Annotation-Driven",
-        "Reflection",
-        "NeoForge",
-        "Dev Tools",
-        "Meta-Programming",
-      ],
-      mainLanguage: LANGUAGES[0],
-      githubUrl: "https://github.com/SirCesarium/Beacon-Core",
-      status: "Alpha / Active",
-    },
-    {
-      title: "Scholar Balance API",
-      description: [
-        "Automated accounting engine for school fee and discount management.",
-        "Designed to minimize race conditions through transactional boundaries and explicit domain rules.",
-        "Explicit audit logs to make financial operations traceable.",
-      ],
-      mainLanguage: LANGUAGES[1],
-      tags: ["Node.js", "InversifyJS", "Prisma", "PostgreSQL", "Zod"],
-      githubUrl: "https://github.com/SirCesarium/scholar-balance-api",
-    },
-    {
-      title: "Web Alias",
-      description: [
-        "URL shortener with Redis-backed analytics and subscription support.",
-        "Pluggable payment architecture allowing provider swaps without touching business logic.",
-        "Secure subscription lifecycle with PayPal SDK and JWT rotation.",
-      ],
-      mainLanguage: LANGUAGES[1],
-      tags: ["Clean Architecture", "Redis", "PayPal SDK", "JWT Rotation"],
-      githubUrl: "https://github.com/SirCesarium/WebAlias",
-    },
-    {
-      title: "Social Core API",
-      description: [
-        "Modular GraphQL API managing complex relational social graphs.",
-        "Granular security layer with custom Helmet CSP and JWT refresh logic.",
-        "Decoupled business logic for posts, comments, and polymorphic reactions.",
-      ],
-      mainLanguage: LANGUAGES[1],
-      tags: ["NestJS", "GraphQL", "Apollo", "MongoDB", "Security"],
-      githubUrl: "https://github.com/SirCesarium/Social-Core-API",
-    },
-  ];
-
+const Projects = (props: { projects: ProjectCardProps[] }) => {
   return (
     <section id="projects" className="relative py-20 px-6">
       <div className="max-w-screen-md mx-auto">
@@ -177,7 +123,7 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((project, index) => (
+          {props.projects.map((project, index) => (
             <ProjectCard key={index} {...project} />
           ))}
         </div>

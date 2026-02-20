@@ -1,7 +1,7 @@
 import About, { IAbout } from "@/components/about";
-import Journey from "@/components/journey";
+import Journey, { JourneyItemProps } from "@/components/journey";
 import Hero from "@/components/hero";
-import Projects from "@/components/projects";
+import Projects, { ProjectCardProps } from "@/components/projects";
 import Experiments, { ExperimentCardProps } from "@/components/experiments";
 import Contact from "@/components/contact";
 
@@ -66,13 +66,100 @@ const experimentsList: ExperimentCardProps[] = [
   },
 ];
 
+const milestones: JourneyItemProps[] = [
+  {
+    title: "Framework Development & Developer Experience",
+    period: "2025 - Present",
+    description:
+      "Building open-source frameworks to remove repetitive boilerplate and reduce cognitive overhead, based on friction I face daily as a backend developer.",
+  },
+  {
+    title: "Architecture (Applied)",
+    period: "2025",
+    description:
+      "Started introducing boundaries to improve testability. Developed a keen sense for balancing architecture with delivery speed, learning to identify when an abstraction adds value and when it's just over-engineering that slows down the deadline.",
+  },
+  {
+    title: "Environment & Code Standards",
+    period: "2024",
+    description:
+      "Adopted Docker and standard workflows to prevent environment inconsistencies and speed up development.",
+  },
+  {
+    title: "Structured Systems & SQL",
+    period: "2023 - 2024",
+    description:
+      "Stepped up to complex relational models and business rules, learning that messy data structures eventually break even the best logic.",
+  },
+  {
+    title: "Technical Foundations",
+    period: "2021 - 2022",
+    description:
+      "Started with JavaScript and TypeScript, building foundations using Firebase and NoSQL databases for rapid development, which eventually showed me why data consistency matters.",
+  },
+];
+
+const projects: ProjectCardProps[] = [
+  {
+    title: "Beacon Framework",
+    description: [
+      "Boilerplate reduction for Minecraft modding via declarative annotations.",
+      "Metaprogramming via Java Reflection implementation for automated registry injection.",
+      "Designed with incremental adoption and DX-first principles, avoiding vendor lock-in.",
+    ],
+    tags: [
+      "Annotation-Driven",
+      "Reflection",
+      "NeoForge",
+      "Dev Tools",
+      "Meta-Programming",
+    ],
+    mainLanguage: "Java",
+    githubUrl: "https://github.com/SirCesarium/Beacon-Core",
+    status: "Alpha / Active",
+  },
+  {
+    title: "Scholar Balance API",
+    description: [
+      "Automated accounting engine for school fee and discount management.",
+      "Designed to minimize race conditions through transactional boundaries and explicit domain rules.",
+      "Explicit audit logs to make financial operations traceable.",
+    ],
+    mainLanguage: "TypeScript",
+    tags: ["Node.js", "InversifyJS", "Prisma", "PostgreSQL", "Zod"],
+    githubUrl: "https://github.com/SirCesarium/scholar-balance-api",
+  },
+  {
+    title: "Web Alias",
+    description: [
+      "URL shortener with Redis-backed analytics and subscription support.",
+      "Pluggable payment architecture allowing provider swaps without touching business logic.",
+      "Secure subscription lifecycle with PayPal SDK and JWT rotation.",
+    ],
+    mainLanguage: "TypeScript",
+    tags: ["Clean Architecture", "Redis", "PayPal SDK", "JWT Rotation"],
+    githubUrl: "https://github.com/SirCesarium/WebAlias",
+  },
+  {
+    title: "Social Core API",
+    description: [
+      "Modular GraphQL API managing complex relational social graphs.",
+      "Granular security layer with custom Helmet CSP and JWT refresh logic.",
+      "Decoupled business logic for posts, comments, and polymorphic reactions.",
+    ],
+    mainLanguage: "TypeScript",
+    tags: ["NestJS", "GraphQL", "Apollo", "MongoDB", "Security"],
+    githubUrl: "https://github.com/SirCesarium/Social-Core-API",
+  },
+];
+
 export default function Home() {
   return (
     <div className="space-y-10 sm:space-y-16">
       <Hero />
       <About data={aboutData} />
-      <Journey />
-      <Projects />
+      <Journey milestones={milestones} />
+      <Projects projects={projects} />
       <Experiments experimentsList={experimentsList} />
       <Contact />
     </div>
