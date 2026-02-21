@@ -9,10 +9,26 @@ import {
 } from "@/components/ui/chart";
 import { AnalyticsCard } from "@/components/analytics-card";
 
+interface Interaction {
+  button_id: string;
+  section: string;
+  time_offset: number;
+}
+
 interface AnalyticsEntry {
+  id: string;
   timestamp: string;
+  duration_seconds: number;
+  max_scroll_percent: number;
+  device: "mobile" | "desktop";
+  browser: string;
   time_per_section?: Record<string, number>;
-  [key: string]: any;
+  clicks?: Interaction[];
+}
+
+interface ProcessedData {
+  sections: Array<{ name: string; seconds: number }>;
+  daily: Array<{ date: string; views: number }>;
 }
 
 const SECTION_CONFIG = {
@@ -30,14 +46,14 @@ export default function AdminPage() {
   useEffect(() => {
     fetch("/api/admin/analytics")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: AnalyticsEntry[]) => {
         setRawData(data);
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
 
-  const processedData = useMemo(() => {
+  const processedData = useMemo<ProcessedData>(() => {
     if (!rawData.length) return { sections: [], daily: [] };
 
     const sectionMap: Record<string, number> = {};
