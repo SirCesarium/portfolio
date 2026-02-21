@@ -130,7 +130,7 @@ export default function Telemetry() {
       window.removeEventListener("pagehide", report);
       observer.disconnect();
     };
-  }, []);
+  }, [IDLE_TIMEOUT]);
 
   return null;
 }
