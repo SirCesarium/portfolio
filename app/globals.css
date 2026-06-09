@@ -35,6 +35,52 @@ body {
     "opsz" 24;
 }
 
+.hero-grid {
+  background-image: radial-gradient(circle, rgba(235, 219, 178, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  animation: grid-pan 60s linear infinite;
+}
+
+.hero-spotlight {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(80px);
+}
+
+.hero-spotlight--primary {
+  width: 500px;
+  height: 500px;
+  background: rgba(251, 73, 52, 0.15);
+  animation: drift-primary 20s ease-in-out infinite;
+}
+
+.hero-spotlight--secondary {
+  width: 400px;
+  height: 400px;
+  background: rgba(250, 189, 47, 0.1);
+  animation: drift-secondary 25s ease-in-out infinite;
+}
+
+@keyframes grid-pan {
+  0% { background-position: 0 0; }
+  100% { background-position: 64px 64px; }
+}
+
+@keyframes drift-primary {
+  0%, 100% { top: 20%; left: 15%; }
+  25% { top: 35%; left: 25%; }
+  50% { top: 25%; left: 40%; }
+  75% { top: 40%; left: 20%; }
+}
+
+@keyframes drift-secondary {
+  0%, 100% { top: 60%; left: 70%; }
+  25% { top: 50%; left: 55%; }
+  50% { top: 65%; left: 60%; }
+  75% { top: 55%; left: 75%; }
+}
+
 @keyframes ripple-expand {
   from {
     transform: translate(-50%, -50%) scale(0);
