@@ -39,7 +39,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
       {/* Mobile drawer overlay */}
       <div className="sm:hidden">
         <motion.button
-          className="icon fixed left-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.06] bg-surface/80 text-3xl shadow-lg shadow-black/30 "
+          className="icon fixed left-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.06] bg-surface/80 text-3xl shadow-lg shadow-black/30 backdrop-blur-2xl"
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.1 }}
@@ -72,7 +72,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
                     setOpen(false);
                   }
                 }}
-                className="fixed left-0 top-0 z-50 flex h-full w-4/5 max-w-sm flex-col gap-1 border-r border-white/[0.06] bg-surface/95 p-6 pt-20 shadow-2xl shadow-black/50 "
+                className="fixed left-0 top-0 z-50 flex h-full w-4/5 max-w-sm flex-col gap-1 border-r border-white/[0.06] bg-surface/95 p-6 pt-20 shadow-2xl shadow-black/50 backdrop-blur-2xl"
               >
                 <div className="flex items-center gap-3 px-4 py-3 mb-2">
                   <span className="text-xs font-medium tracking-widest uppercase text-text/40">
@@ -129,7 +129,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
                 damping: 22,
                 mass: 0.8,
               }}
-              className="rounded-2xl border border-white/[0.06] bg-surface/80 shadow-2xl shadow-black/40  backdrop-saturate-150"
+              className="rounded-2xl border border-white/[0.06] bg-surface/80 shadow-2xl shadow-black/40 backdrop-blur-2xl backdrop-saturate-150"
             >
               <div className="flex w-80 flex-col gap-1 p-3">
                 <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] mb-1">
@@ -157,7 +157,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
         </AnimatePresence>
 
         <motion.button
-          className="icon absolute left-0 top-0 z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.06] bg-surface/80 shadow-lg shadow-black/30 text-4xl "
+          className="icon absolute left-0 top-0 z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/[0.06] bg-surface/80 shadow-lg shadow-black/30 text-4xl backdrop-blur-2xl"
           animate={{
             x: open ? 312 : 0,
           }}
