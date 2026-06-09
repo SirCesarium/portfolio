@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { type ReactNode, useRef, useState } from "react";
-import RippleEffect, { type Ripple } from "./RippleEffect";
+import type { ReactNode } from "react";
+import { useRipple } from "@/hooks/useRipple";
+import RippleEffect from "./RippleEffect";
 
 type ButtonProps = {
   children: ReactNode;
@@ -18,21 +19,7 @@ export default function Button({
   className = "",
 }: ButtonProps) {
   const Tag = href ? motion.a : motion.button;
-  const [ripples, setRipples] = useState<Ripple[]>([]);
-  const nextId = useRef(0);
-
-  function handlePointerDown(e: React.PointerEvent<HTMLElement>) {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height) * 2;
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const id = nextId.current++;
-    setRipples((prev) => [...prev, { id, x, y, size }]);
-  }
-
-  function removeRipple(id: number) {
-    setRipples((prev) => prev.filter((r) => r.id !== id));
-  }
+  const { ripples, addRipple, removeRipple } = useRipple();
 
   if (variant === "filled") {
     return (
@@ -42,7 +29,7 @@ export default function Button({
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.92 }}
         transition={{ duration: 0.1 }}
-        onPointerDownCapture={handlePointerDown}
+        onPointerDownCapture={addRipple}
       >
         {children}
         <RippleEffect
@@ -61,7 +48,7 @@ export default function Button({
       whileHover={{ scale: 1.06 }}
       whileTap={{ scale: 0.92 }}
       transition={{ duration: 0.1 }}
-      onPointerDownCapture={handlePointerDown}
+      onPointerDownCapture={addRipple}
     >
       <div className="absolute inset-0 bg-primary origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100" />
       <span className="relative transition-colors duration-300 group-hover:text-black">

@@ -1,11 +1,6 @@
 "use client";
 
-export type Ripple = {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-};
+import type { Ripple } from "@/hooks/useRipple";
 
 type RippleEffectProps = {
   ripples: Ripple[];
