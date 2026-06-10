@@ -39,10 +39,11 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
       {/* Mobile drawer overlay */}
       <div className="sm:hidden">
         <motion.button
-          className="icon fixed left-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/6 bg-surface/80 text-3xl shadow-lg shadow-black/30 backdrop-blur-2xl"
+          className="fixed left-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/6 bg-surface/80 text-3xl shadow-lg shadow-black/30 backdrop-blur-2xl"
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.1 }}
+          style={{ fontFamily: '"Material Symbols Rounded"' }}
         >
           {open ? "close" : "menu"}
         </motion.button>
@@ -90,7 +91,11 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
                       delay: i * 0.035,
                     }}
                   >
-                    <NavItem {...item} isActive={isActive(item)} />
+                    <NavItem
+                      {...item}
+                      isActive={isActive(item)}
+                      onClick={() => setOpen(false)}
+                    />
                   </motion.div>
                 ))}
               </motion.nav>
@@ -157,7 +162,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
         </AnimatePresence>
 
         <motion.button
-          className="icon absolute left-0 top-0 z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/6 bg-surface/80 shadow-lg shadow-black/30 text-4xl backdrop-blur-2xl"
+          className="absolute left-0 top-0 z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/6 bg-surface/80 shadow-lg shadow-black/30 text-4xl backdrop-blur-2xl"
           animate={{
             x: open ? 312 : 0,
           }}
@@ -169,6 +174,7 @@ export default function NavigationDrawer({ items }: NavigationDrawerProps) {
           }}
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
+          style={{ fontFamily: '"Material Symbols Rounded"' }}
         >
           <motion.span
             animate={{ rotate: open ? 90 : 0 }}
