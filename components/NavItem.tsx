@@ -9,9 +9,16 @@ type NavItemProps = {
   label: string;
   href?: string;
   isActive?: boolean;
+  onClick?: () => void;
 };
 
-export default function NavItem({ icon, label, href, isActive }: NavItemProps) {
+export default function NavItem({
+  icon,
+  label,
+  href,
+  isActive,
+  onClick,
+}: NavItemProps) {
   const Tag = href ? motion.a : motion.button;
   const { ripples, addRipple, removeRipple } = useRipple();
 
@@ -24,6 +31,7 @@ export default function NavItem({ icon, label, href, isActive }: NavItemProps) {
           : "text-text/60 hover:text-text hover:bg-white/[0.04]"
       }`}
       onPointerDownCapture={addRipple}
+      onClick={onClick}
       whileHover={{ x: 4 }}
       whileTap={{ scale: 0.96 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
