@@ -22,7 +22,7 @@ export default function Section({
   return (
     <section
       id={id}
-      className={`flex w-full max-w-4xl flex-col py-32 ${className}`}
+      className={`flex w-full max-w-6xl flex-col py-32 gap-10 ${className}`}
     >
       <motion.div
         initial={{ opacity: 0, y: 24 }}

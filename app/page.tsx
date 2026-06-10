@@ -1,20 +1,26 @@
 import Button from "@/components/Button";
+import EcosystemCard from "@/components/EcosystemCard";
 import { Github } from "@/components/icons/GitHub";
 import NavigationDrawer from "@/components/NavigationDrawer";
+import ProjectCard from "@/components/ProjectCard";
 import Section from "@/components/Section";
 import Typography from "@/components/Typography";
 import Underline from "@/components/Underline";
+import WakeUp from "@/components/WakeUp";
+import { conduitEcosystem, featuredProjects } from "@/data/projects";
 
 const navItems = [
   { icon: "home", label: "Home", href: "#home" },
-  { icon: "code", label: "Projects", href: "#a" },
-  { icon: "mail", label: "Contact", href: "#b" },
-  { icon: "settings", label: "Settings", href: "#c" },
+  { icon: "code", label: "Projects", href: "#projects" },
+  { icon: "mail", label: "Contact", href: "#contact" },
+  { icon: "settings", label: "Settings", href: "#settings" },
 ];
 
 export default function Home() {
   return (
     <main className="flex flex-1 flex-col items-center px-6 sm:px-16">
+      {/* WakeUp pings demo URLs (Render free-tier) to prevent cold-start delay */}
+      <WakeUp />
       <NavigationDrawer items={navItems} />
       <header
         id="home"
@@ -52,15 +58,31 @@ export default function Home() {
         </div>
       </header>
 
-      <Section id="a" title="Projects" icon="code">
+      <Section id="projects" title="Projects" icon="code">
+        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
+          {featuredProjects.slice(0, 2).map((p, i) => (
+            <ProjectCard key={p.name} project={p} index={i} />
+          ))}
+
+          {featuredProjects.slice(2, 4).map((p, i) => (
+            <ProjectCard key={p.name} project={p} index={i + 2} />
+          ))}
+
+          <div className="sm:col-span-2">
+            <EcosystemCard ecosystem={conduitEcosystem} index={4} />
+          </div>
+
+          {featuredProjects.slice(4).map((p, i) => (
+            <ProjectCard key={p.name} project={p} index={i + 5} />
+          ))}
+        </div>
+      </Section>
+
+      <Section id="contact" title="Contact" icon="mail">
         <div className="h-screen" />
       </Section>
 
-      <Section id="b" title="Contact" icon="mail">
-        <div className="h-screen" />
-      </Section>
-
-      <Section id="c" title="Settings" icon="settings">
+      <Section id="settings" title="Settings" icon="settings">
         <div className="h-screen" />
       </Section>
     </main>
