@@ -42,7 +42,7 @@ export default function Home() {
           </Typography>
 
           <div className="mt-10 flex w-full flex-col items-stretch gap-4 sm:w-auto sm:flex-row sm:justify-end">
-            <Button href="#" className="w-full sm:w-auto" icon={<Github />}>
+            <Button href="https://github.com/SirCesarium" className="w-full sm:w-auto" icon={<Github />}>
               GITHUB
             </Button>
             <Button
