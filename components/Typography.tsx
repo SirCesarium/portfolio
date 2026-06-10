@@ -43,6 +43,8 @@ type TypographyProps = {
   as?: keyof HTMLElementTagNameMap;
   children: ReactNode;
   className?: string;
+  icon?: string;
+  separator?: boolean;
 };
 
 export default function Typography({
@@ -50,11 +52,32 @@ export default function Typography({
   as,
   children,
   className = "",
+  icon,
+  separator,
 }: TypographyProps) {
   const config = variants[variant];
   const Tag = as ?? config.as;
 
-  return (
-    <Tag className={`${config.className} ${className}`.trim()}>{children}</Tag>
+  const heading = (
+    <Tag className={`${config.className} ${className}`.trim()}>
+      {icon && (
+        <span className="icon mr-2 align-middle text-[1.1em]">{icon}</span>
+      )}
+      {children}
+    </Tag>
   );
+
+  if (separator) {
+    return (
+      <Tag
+        className={`flex w-full items-center gap-4 ${config.className} ${className}`.trim()}
+      >
+        {icon && <span className="icon align-middle text-[1.1em]">{icon}</span>}
+        <span>{children}</span>
+        <span className="h-px flex-1 bg-gradient-to-r from-primary/40 to-transparent" />
+      </Tag>
+    );
+  }
+
+  return heading;
 }

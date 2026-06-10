@@ -1,6 +1,7 @@
 import Button from "@/components/Button";
 import { Github } from "@/components/icons/GitHub";
 import NavigationDrawer from "@/components/NavigationDrawer";
+import Section from "@/components/Section";
 import Typography from "@/components/Typography";
 import Underline from "@/components/Underline";
 
@@ -51,20 +52,17 @@ export default function Home() {
         </div>
       </header>
 
-      <section id="a" className="flex w-full max-w-4xl flex-col py-32">
-        <Typography variant="h2">Projects</Typography>
+      <Section id="a" title="Projects" icon="code">
         <div className="h-screen" />
-      </section>
+      </Section>
 
-      <section id="b" className="flex w-full max-w-4xl flex-col py-32">
-        <Typography variant="h2">Contact</Typography>
+      <Section id="b" title="Contact" icon="mail">
         <div className="h-screen" />
-      </section>
+      </Section>
 
-      <section id="c" className="flex w-full max-w-4xl flex-col py-32">
-        <Typography variant="h2">Settings</Typography>
+      <Section id="c" title="Settings" icon="settings">
         <div className="h-screen" />
-      </section>
+      </Section>
     </main>
   );
 }
