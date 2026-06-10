@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${jetbrainsMono.variable} h-full antialiased scroll-smooth`}
     >
       <head>
         <link
