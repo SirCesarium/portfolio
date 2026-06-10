@@ -13,7 +13,6 @@ const navItems = [
   { icon: "home", label: "Home", href: "#home" },
   { icon: "code", label: "Projects", href: "#projects" },
   { icon: "mail", label: "Contact", href: "#contact" },
-  { icon: "settings", label: "Settings", href: "#settings" },
 ];
 
 export default function Home() {
@@ -79,10 +78,6 @@ export default function Home() {
       </Section>
 
       <Section id="contact" title="Contact" icon="mail">
-        <div className="h-screen" />
-      </Section>
-
-      <Section id="settings" title="Settings" icon="settings">
         <div className="h-screen" />
       </Section>
     </main>
