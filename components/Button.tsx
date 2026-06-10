@@ -27,10 +27,7 @@ export default function Button({
     return (
       <Tag
         href={href}
-        className={`relative flex h-12 items-center justify-center gap-2 rounded-lg px-8 text-sm font-bold uppercase bg-primary text-black overflow-hidden ${className}`}
-        whileHover={{ scale: 1.06 }}
-        whileTap={{ scale: 0.92 }}
-        transition={{ duration: 0.1 }}
+        className={`relative flex h-12 items-center justify-center gap-2 rounded-lg px-8 text-sm font-bold uppercase bg-primary text-black overflow-hidden transition-transform duration-100 hover:scale-105 active:scale-95 ${className}`}
         onPointerDownCapture={addRipple}
       >
         {icon && (
@@ -49,10 +46,7 @@ export default function Button({
   return (
     <Tag
       href={href}
-      className={`group relative flex h-12 items-center justify-center rounded-lg px-8 text-sm font-bold uppercase border-2 border-primary text-primary overflow-hidden ${className}`}
-      whileHover={{ scale: 1.06 }}
-      whileTap={{ scale: 0.92 }}
-      transition={{ duration: 0.1 }}
+      className={`group relative flex h-12 items-center justify-center rounded-lg px-8 text-sm font-bold uppercase border-2 border-primary text-primary overflow-hidden transition-transform duration-100 hover:scale-105 active:scale-95 ${className}`}
       onPointerDownCapture={addRipple}
     >
       <div className="absolute inset-0 bg-primary origin-left scale-x-0 transition-transform duration-500 ease-out group-hover:scale-x-100" />
