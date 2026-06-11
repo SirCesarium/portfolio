@@ -28,20 +28,11 @@ export const langColors: Record<string, string> = {
 
 export const featuredProjects: Project[] = [
   {
-    name: "Inventory API",
-    lang: "PHP",
-    org: "SirCesarium",
-    description:
-      "Laravel REST API with role-based access control, authentication, audits, and full CRUD for inventory management with traceability.",
-    url: "https://github.com/SirCesarium/inventory-api",
-    demoUrl: "https://inventory-api-y8ou.onrender.com/docs/api",
-  },
-  {
     name: "Refinery",
     lang: "TypeScript",
     org: "MechanicalLabs",
     description:
-      "Configuration-driven CI/CD orchestrator. Builds universal binaries, installers, and libraries across CI platforms (like GitHub Actions) and multiple languages (like Rust).",
+    "Configuration-driven CI/CD orchestrator. Builds universal binaries, installers, and libraries across CI platforms (like GitHub Actions) and multiple languages (like Rust).",
     url: "https://github.com/MechanicalLabs/refinery",
   },
   {
@@ -49,7 +40,7 @@ export const featuredProjects: Project[] = [
     lang: "Rust",
     org: "SirCesarium",
     description:
-      "Near zero-overhead L4 reverse proxy for port multiplexing. Extensible with hooks (L7-like behaviour in L4).",
+    "Near zero-overhead L4 reverse proxy for port multiplexing. Extensible with hooks (L7-like behaviour in L4).",
     url: "https://github.com/SirCesarium/refractium",
   },
   {
@@ -57,8 +48,17 @@ export const featuredProjects: Project[] = [
     lang: "Rust",
     org: "SirCesarium",
     description:
-      "ZIP inspection tool (CLI/Library) without even extracting files (uses streams) — tree, grep, diff, cat, and pipe without extracting archives.",
+    "ZIP inspection tool (CLI/Library) without even extracting files (uses streams) — tree, grep, diff, cat, and pipe without extracting archives.",
     url: "https://github.com/SirCesarium/zipcrawl",
+  },
+  {
+    name: "Inventory API",
+    lang: "PHP",
+    org: "SirCesarium",
+    description:
+      "Laravel REST API with role-based access control, authentication, audits, and full CRUD for inventory management with traceability.",
+    url: "https://github.com/SirCesarium/inventory-api",
+    demoUrl: "https://inventory-api-y8ou.onrender.com/docs/api",
   },
   {
     name: "Tyg (Type-Gen)",
